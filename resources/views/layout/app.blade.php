@@ -5,34 +5,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIMS web APP</title>
-    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"> --}}
-    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
+
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body>
-    <div class="container-fluid">
-        <div class="row" style="height: 100vh;">
-            <div class="col-6 bg-white d-flex justify-content-center align-items-center text-dark">
-                
-                <div class="container-fluid d-flex justify-content-center align-items-center" style="height: 100vh;">
-                    <div class="text-center">
-                        <h4><img src="../asset/Handbag.png" alt="tas" class="image-red mx-2 pb-2" style="width: 30px">SIMS Web App</h4>
-                        <h4 class="my-4">
-                            Masuk atau buat akun <br> untuk memulai
-                        </h4>
-                    </div>
-                </div>
-            
+    <div class="d-flex">
+        @include('layout.sidebar')
+
+        <main class="w-100">
+            <div class="d-flex justify-content-between align-items-center px-4 py-3">
+                @include('layout.header')
             </div>
-            <div class="col-6 bg-default d-flex justify-content-center align-items-center text-white">
-                Kolom Kanan
+
+            <div class="flex-grow-1 p-4">
+                @yield('konten')
             </div>
-        </div>
+        </main>
+
     </div>
 
-    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script> --}}
+    <!-- Scripts DataTables -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable(); // Inisialisasi DataTables
+        });
+    </script>
 </body>
 
 </html>

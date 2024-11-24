@@ -4,9 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SIMS web APP</title>
+    <title>SIMS Web App - Register</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -17,22 +16,27 @@
 
                 <div class="container-fluid d-flex justify-content-center align-items-center" style="height: 100vh;">
                     <div class="text-center">
-                        @if (session()->has('error'))
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                {{ session('error') }}
-                                
-                            </div>
-                        @endif
                         <h4><i class="bi bi-handbag" style="color: red;"></i>SIMS Web App</h4>
                         <h4 class="my-4">
-                            Masuk atau buat akun <br> untuk memulai
+                            Buat akun baru untuk memulai
                         </h4>
-                        <form action="/login" method="POST">
+                        <form action="/register" method="POST">
                             @csrf
                             <div class="input-group mb-3">
+                                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
+                                    placeholder="Nama Lengkap" required autofocus value="{{ old('name') }}">
+                            </div>
+                            @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+
+                            <div class="input-group mb-3">
                                 <span class="input-group-text"><i class="bi bi-at"></i></span>
-                                <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                    id="email" name="email" placeholder="Masukkan email Anda" autofocus required>
+                                <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
+                                    placeholder="Masukkan email Anda" value="{{ old('email') }}" required>
                             </div>
                             @error('email')
                                 <span class="invalid-feedback" role="alert">
@@ -42,11 +46,8 @@
 
                             <div class="input-group mb-3">
                                 <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                                <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                    id="password" name="password" placeholder="Masukkan password Anda" required>
-                                <span class="input-group-text" id="togglePassword" style="cursor: pointer;">
-                                    <i class="bi bi-eye"></i>
-                                </span>
+                                <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
+                                    placeholder="Masukkan password Anda" required>
                             </div>
                             @error('password')
                                 <span class="invalid-feedback" role="alert">
@@ -54,13 +55,24 @@
                                 </span>
                             @enderror
 
-                            <button class="btn btn-login">
-                                Masuk
-                            </button>
-                        </form>
-                        <div class="my-2">belum punya akun? <a href="/register">buat akun</a> sekarang
+                            <div class="input-group mb-3">
+                                <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                                <input type="password" name="password_confirmation" class="form-control" placeholder="Konfirmasi password"
+                                    required>
+                            </div>
+                            @error('password_confirmation')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
 
-                        </div>
+                            <button class="btn btn-login" type="submit">
+                                Daftar
+                            </button>
+                            <div class="my-2">sudah punya akun? <a href="/login">masuk</a> sekarang
+                            
+                            </div>
+                        </form>
                     </div>
                 </div>
 
@@ -74,17 +86,6 @@
             </div>
         </div>
     </div>
-
-    <script>
-        const password = document.getElementById("password");
-        const togglePassword = document.getElementById("togglePassword");
-        togglePassword.addEventListener("click", function() {
-            const type = password.type === "password" ? "text" : "password";
-            password.type = type;
-            this.innerHTML = type === "password" ? '<i class="bi bi-eye"></i>' :
-                '<i class="bi bi-eye-slash"></i>';
-        });
-    </script>
 </body>
 
 </html>

@@ -70,7 +70,7 @@
                                     {{-- <td>{{ $loop->iteration }}</td> --}}
                                     <td>{{ $nomor++ }}</td>
                                     <td>
-                                        <img src="{{ asset('images/' . $item->gambar) }}" alt="{{ $item->nama_produk }}"
+                                        <img src="{{ asset('storage/' . $item->gambar) }}" alt="{{ $item->nama_produk }}"
                                             width="20">
                                     </td>
                                     <td>{{ $item->nama_produk }}</td>

@@ -10,8 +10,14 @@
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{asset('asset/css/app.css')}}">
+    <link rel="stylesheet" href="{{asset('asset/js/app.js')}}">
+    <link rel="stylesheet" href="{{asset('asset/js/bootstrap.js')}}">
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+
+    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
 </head>
 
 <body>

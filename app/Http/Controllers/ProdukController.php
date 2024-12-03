@@ -103,8 +103,8 @@ class ProdukController extends Controller
         if ($request->hasFile('gambar')) {
             $file = $request->file('gambar');
             $filename = 'gambar-' . time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('images'), $filename);
-            $produk->gambar = $filename;
+            $filePath = $file->storeAs('images', $filename,'public');
+            $produk->gambar = $filePath;
         }
 
         $produk->save();
@@ -164,13 +164,13 @@ class ProdukController extends Controller
         $produk->stok = $request->stok;
 
         if ($request->hasFile('gambar')) {
-            if ($produk->gambar && file_exists(public_path('images/' . $produk->gambar))) {
-                unlink(public_path('images/' . $produk->gambar));
+            if ($produk->gambar && \Storage::disk('public')->exists($produk->gambar)) {
+                \Storage::disk('public')->delete($produk->gambar);
             }
             $file = $request->file('gambar');
             $filename = 'gambar-' . time() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('images'), $filename);
-            $produk->gambar = $filename;
+            $filePath = $file->storeAs('images', $filename, 'public');
+            $produk->gambar = $filePath;
         }
 
         $produk->save();
@@ -183,13 +183,13 @@ class ProdukController extends Controller
     public function destroy($id)
     {
         $produk = Produk::find($id);
+
         if ($produk) {
-            if (file_exists(public_path('images/' . $produk->gambar))) {
-                unlink(public_path('images/' . $produk->gambar));
+            if ($produk->gambar && \Storage::disk('public')->exists($produk->gambar)) {
+                \Storage::disk('public')->delete($produk->gambar);
             }
             $produk->delete();
-
-
+        
             return redirect()->route('produk.index')->with('success', 'Produk berhasil dihapus.');
         } else {
             return redirect()->route('produk.index')->with('error', 'Produk tidak ditemukan.');
